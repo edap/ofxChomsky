@@ -62,7 +62,7 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "../snazzle.ypp" /* yacc.c:339  */
+#line 1 "../chomsky.ypp" /* yacc.c:339  */
 
 #include <cstdio>
 #include <iostream>
@@ -75,7 +75,7 @@ extern FILE *yyin;
  
 void yyerror(const char *s);
 
-#line 79 "snazzle.tab.cpp" /* yacc.c:339  */
+#line 79 "chomsky.tab.hpp" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -121,13 +121,13 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 19 "../snazzle.ypp" /* yacc.c:355  */
+#line 19 "../chomsky.ypp" /* yacc.c:355  */
 
 	int ival;
 	float fval;
 	char *sval;
 
-#line 131 "snazzle.tab.cpp" /* yacc.c:355  */
+#line 131 "chomsky.tab.hpp" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -144,7 +144,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 148 "snazzle.tab.cpp" /* yacc.c:358  */
+#line 148 "chomsky.tab.hpp" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -1220,31 +1220,31 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 40 "../snazzle.ypp" /* yacc.c:1646  */
+#line 40 "../chomsky.ypp" /* yacc.c:1646  */
     { cout << "done with a snazzle file!" << endl; }
-#line 1226 "snazzle.tab.cpp" /* yacc.c:1646  */
+#line 1226 "chomsky.tab.hpp" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 43 "../snazzle.ypp" /* yacc.c:1646  */
+#line 43 "../chomsky.ypp" /* yacc.c:1646  */
     { cout << "reading a snazzle file version " << (yyvsp[0].fval) << endl; }
-#line 1232 "snazzle.tab.cpp" /* yacc.c:1646  */
+#line 1232 "chomsky.tab.hpp" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 53 "../snazzle.ypp" /* yacc.c:1646  */
+#line 53 "../chomsky.ypp" /* yacc.c:1646  */
     { cout << "new defined snazzle type: " << (yyvsp[0].sval) << endl; }
-#line 1238 "snazzle.tab.cpp" /* yacc.c:1646  */
+#line 1238 "chomsky.tab.hpp" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 63 "../snazzle.ypp" /* yacc.c:1646  */
+#line 63 "../chomsky.ypp" /* yacc.c:1646  */
     { cout << "new snazzle: " << (yyvsp[-4].ival) << (yyvsp[-3].ival) << (yyvsp[-2].ival) << (yyvsp[-1].ival) << (yyvsp[0].sval) << endl; }
-#line 1244 "snazzle.tab.cpp" /* yacc.c:1646  */
+#line 1244 "chomsky.tab.hpp" /* yacc.c:1646  */
     break;
 
 
-#line 1248 "snazzle.tab.cpp" /* yacc.c:1646  */
+#line 1248 "chomsky.tab.hpp" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1472,7 +1472,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 69 "../snazzle.ypp" /* yacc.c:1906  */
+#line 69 "../chomsky.ypp" /* yacc.c:1906  */
 
 
 int main(int, char**) {

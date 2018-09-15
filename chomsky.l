@@ -1,5 +1,5 @@
 %{
-	#include "snazzle.tab.hpp"
+	#include "chomsky.tab.hpp"
 %}
 
 %option noyywrap

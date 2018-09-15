@@ -468,9 +468,9 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "../snazzle.l"
-#line 2 "../snazzle.l"
-	#include "snazzle.tab.hpp"
+#line 1 "../chomsky.l"
+#line 2 "../chomsky.l"
+	#include "chomsky.tab.hpp"
 #line 475 "lex.yy.cpp"
 
 #define INITIAL 0
@@ -689,7 +689,7 @@ YY_DECL
 		}
 
 	{
-#line 7 "../snazzle.l"
+#line 7 "../chomsky.l"
 
 #line 695 "lex.yy.cpp"
 
@@ -751,37 +751,37 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 8 "../snazzle.l"
+#line 8 "../chomsky.l"
 ;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 9 "../snazzle.l"
+#line 9 "../chomsky.l"
 { return SNAZZLE; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 10 "../snazzle.l"
+#line 10 "../chomsky.l"
 { return TYPE; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 11 "../snazzle.l"
+#line 11 "../chomsky.l"
 { return END; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 12 "../snazzle.l"
+#line 12 "../chomsky.l"
 { yylval.fval = atof(yytext); return FLOAT; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 13 "../snazzle.l"
+#line 13 "../chomsky.l"
 { yylval.ival = atoi(yytext); return INT; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 14 "../snazzle.l"
+#line 14 "../chomsky.l"
 {
 	// We have to strdup because we can't rely on yytext not changing underneath us:
 	yylval.sval = strdup(yytext);
@@ -790,12 +790,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 19 "../snazzle.l"
+#line 19 "../chomsky.l"
 ;
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 20 "../snazzle.l"
+#line 20 "../chomsky.l"
 ECHO;
 	YY_BREAK
 #line 802 "lex.yy.cpp"
@@ -1799,7 +1799,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 20 "../snazzle.l"
+#line 20 "../chomsky.l"
 
 
 

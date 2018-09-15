@@ -1,15 +1,15 @@
-DERIVED = lex.yy.cpp snazzle.tab.hpp snazzle
+DERIVED = lex.yy.cpp chomsky.tab.hpp chomsky
 
 all: $(DERIVED)
 
-lex.yy.cpp: ../snazzle.l snazzle.tab.hpp
-	flex -o lex.yy.cpp ../snazzle.l
+lex.yy.cpp: ../chomsky.l chomsky.tab.hpp
+	flex -o lex.yy.cpp ../chomsky.l
 
-snazzle.tab.hpp: ../snazzle.ypp
-	bison -o snazzle.tab.hpp ../snazzle.ypp
+chomsky.tab.hpp: ../chomsky.ypp
+	bison -o chomsky.tab.hpp ../chomsky.ypp
 
-snazzle: lex.yy.cpp snazzle.tab.hpp
-	g++ snazzle.tab.hpp lex.yy.cpp -o snazzle
+chomsky: lex.yy.cpp chomsky.tab.hpp
+	g++ chomsky.tab.hpp lex.yy.cpp -o chomsky
 
 clean:
 	rm $(DERIVED)
