@@ -1,4 +1,4 @@
-## How do build
+## How to build
 
 ```c
 cd derived
