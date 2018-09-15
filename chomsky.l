@@ -2,9 +2,17 @@
 	#include "chomsky.tab.hpp"
 %}
 
+OPTION      option
+INTEGER     [0-9]+%?
+RATIONAL    ([0-9]+\.[0-9]*%?)|(\.[0-9]+%?)
+RATIONAL2   [0-9]+%?\.\.
+FLOAT       ([0-9]+\.[0-9]*[eE][+-]?[0-9]+%?)|(\.[0-9]+[eE][+-]?[0-9]+%?)|[0-9]+[eE][+-]?[0-9]+%?
+EOL \n|\r\n|\r
+
 %option noyywrap
 
 %%
+{OPTION}       {return OPTION; }
 [ \t\n] ;
 sNaZZle        { return SNAZZLE; }
 type           { return TYPE; }

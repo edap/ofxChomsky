@@ -25,12 +25,21 @@ void yyerror(const char *s);
 // define the constant-string tokens:
 %token SNAZZLE TYPE
 %token END
+%token OPTION
+%token NOT
+%token NEG
+%token POS
 
 // define the "terminal symbol" token types I'm going to use (in CAPS
 // by convention), and associate each with a field of the union:
 %token <ival> INT
 %token <fval> FLOAT
 %token <sval> STRING
+
+// left and right operator. TODO
+%left '-' '+' '_'
+%left '*' '/'
+%left NOT NEG POS /* negation--unary minus, unary identity */
 
 %%
 
