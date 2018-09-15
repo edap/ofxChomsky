@@ -5,4 +5,4 @@ cd derived
 make
 ```
 
-Test with `./snazzle` in the same folder.
+Test with `./chomsky` in the same folder.
