@@ -2,17 +2,19 @@
 	#include "chomsky.tab.hpp"
 %}
 
-OPTION      option
-INTEGER     [0-9]+%?
-RATIONAL    ([0-9]+\.[0-9]*%?)|(\.[0-9]+%?)
-RATIONAL2   [0-9]+%?\.\.
-FLOAT       ([0-9]+\.[0-9]*[eE][+-]?[0-9]+%?)|(\.[0-9]+[eE][+-]?[0-9]+%?)|[0-9]+[eE][+-]?[0-9]+%?
+INTEGER_REG     [0-9]+%?
+RATIONAL_REG    ([0-9]+\.[0-9]*%?)|(\.[0-9]+%?)
+RATIONAL2_REG   [0-9]+%?\.\.
+FLOAT_REG       ([0-9]+\.[0-9]*[eE][+-]?[0-9]+%?)|(\.[0-9]+[eE][+-]?[0-9]+%?)|[0-9]+[eE][+-]?[0-9]+%?
 EOL \n|\r\n|\r
 
+
 %option noyywrap
+%option prefix="Chomsky"
+
 
 %%
-{OPTION}       {return OPTION; }
+option       {return OPTION; }
 [ \t\n] ;
 sNaZZle        { return SNAZZLE; }
 type           { return TYPE; }

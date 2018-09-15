@@ -6,6 +6,15 @@ using namespace std;
 // stuff from flex that bison needs to know about:
 extern int yylex();
 extern int yyparse();
+
+// buffer state. This is used to parse string in memory
+// decomment when https://github.com/westes/flex/issues/383
+// typedef struct yy_buffer_state * YY_BUFFER_STATE;
+// extern YY_BUFFER_STATE yy_scan_string(const char * str); // it does not work.
+// extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
+// extern void yy_switch_to_buffer(YY_BUFFER_STATE buffer);
+
+// pointer to a file. This is used to parse files.
 extern FILE *yyin;
  
 void yyerror(const char *s);
@@ -37,59 +46,61 @@ void yyerror(const char *s);
 %token <sval> STRING
 
 // left and right operator. TODO
-%left '-' '+' '_'
+%left '-' '+'
 %left '*' '/'
 %left NOT NEG POS /* negation--unary minus, unary identity */
 
 %%
 
 // the first rule defined is the highest-level rule, which in our
-// case is just the concept of a whole "snazzle file":
-snazzle:
-	header template body_section footer { cout << "done with a snazzle file!" << endl; }
+// case is just the concept of a "chomsky file":
+chomsky:
+	lines line footer { cout << "done with a snazzle file!" << endl; }
 	;
-header:
+lines:
 	SNAZZLE FLOAT { cout << "reading a snazzle file version " << $2 << endl; }
 	;
-template:
-	typelines
-	;
-typelines:
-	typelines typeline
-	| typeline
-	;
-typeline:
+line:
 	TYPE STRING { cout << "new defined snazzle type: " << $2 << endl; }
-	;
-body_section:
-	body_lines
-	;
-body_lines:
-	body_lines body_line
-	| body_line
-	;
-body_line:
-	INT INT INT INT STRING { cout << "new snazzle: " << $1 << $2 << $3 << $4 << $5 << endl; }
 	;
 footer:
 	END
 	;
 
+
 %%
 
-int main(int, char**) {
-	// open a file handle to a particular file:
-	FILE *myfile = fopen("in.snazzle", "r");
-	// make sure it's valid:
-	if (!myfile) {
-		cout << "I can't open a.snazzle.file!" << endl;
-		return -1;
+int main(int argc, const char* const argv[]){
+	if (argc==1) {
+		// no extra parameters passed. Parse a string
+		// wait for answer https://github.com/westes/flex/issues/383
+		// char string[] = "String to be parsed.";
+    	// YY_BUFFER_STATE buffer = yy_scan_string(string);
+		// yy_switch_to_buffer(buffer);
+	
+		// yyparse();
+		// yy_delete_buffer(buffer);
 	}
-	// Set flex to read from it instead of defaulting to STDIN:
-	yyin = myfile;
+	if (argc >= 2){
+		// argument passed, look for that filepath
+		// open a file handle to a particular file:
+		FILE *myfile = fopen(argv[1], "r");
+		// make sure it's valid:
+		if (!myfile) {
+			cout << "I can't open the file" << endl;
+			cout << argv[1] << endl;
+			return -1;
+		}
+		// Set flex to read from it instead of defaulting to STDIN:
+		yyin = myfile;
 
-	// Parse through the input:
-	yyparse();
+		// Parse through the input:
+		yyparse();
+	}
+
+
+	//;
+
 }
 
 void yyerror(const char *s) {

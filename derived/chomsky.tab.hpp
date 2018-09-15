@@ -71,11 +71,20 @@ using namespace std;
 // stuff from flex that bison needs to know about:
 extern int yylex();
 extern int yyparse();
+
+// buffer state. This is used to parse string in memory
+typedef struct yy_buffer_state * YY_BUFFER_STATE;
+extern YY_BUFFER_STATE yy_scan_string(const char * str); // it does not work.
+extern YY_BUFFER_STATE yy_scan_buffer(char *, size_t);
+extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
+extern void yy_switch_to_buffer(YY_BUFFER_STATE buffer);
+
+// pointer to a file. This is used to parse files.
 extern FILE *yyin;
  
 void yyerror(const char *s);
 
-#line 79 "chomsky.tab.hpp" /* yacc.c:339  */
+#line 88 "chomsky.tab.hpp" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -125,13 +134,13 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 19 "../chomsky.ypp" /* yacc.c:355  */
+#line 28 "../chomsky.ypp" /* yacc.c:355  */
 
 	int ival;
 	float fval;
 	char *sval;
 
-#line 135 "chomsky.tab.hpp" /* yacc.c:355  */
+#line 144 "chomsky.tab.hpp" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -148,7 +157,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 152 "chomsky.tab.hpp" /* yacc.c:358  */
+#line 161 "chomsky.tab.hpp" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -390,16 +399,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  5
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   16
+#define YYLAST   5
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  18
+#define YYNTOKENS  17
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  10
+#define YYNNTS  5
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  12
+#define YYNRULES  5
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  23
+#define YYNSTATES  11
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
@@ -417,12 +426,12 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,    16,    14,     2,    13,     2,    17,     2,     2,
+       2,     2,    15,    14,     2,    13,     2,    16,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,    15,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -446,8 +455,7 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    49,    49,    52,    55,    58,    59,    62,    65,    68,
-      69,    72,    75
+       0,    58,    58,    61,    64,    67
 };
 #endif
 
@@ -457,9 +465,8 @@ static const yytype_uint8 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "SNAZZLE", "TYPE", "END", "OPTION",
-  "NOT", "NEG", "POS", "INT", "FLOAT", "STRING", "'-'", "'+'", "'_'",
-  "'*'", "'/'", "$accept", "snazzle", "header", "template", "typelines",
-  "typeline", "body_section", "body_lines", "body_line", "footer", YY_NULLPTR
+  "NOT", "NEG", "POS", "INT", "FLOAT", "STRING", "'-'", "'+'", "'*'",
+  "'/'", "$accept", "chomsky", "lines", "line", "footer", YY_NULLPTR
 };
 #endif
 
@@ -469,7 +476,7 @@ static const char *const yytname[] =
 static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267,    45,    43,    95,    42,    47
+     265,   266,   267,    45,    43,    42,    47
 };
 # endif
 
@@ -487,9 +494,8 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -3,   -10,     2,    -1,   -11,   -11,    -8,    -5,    -1,   -11,
-     -11,    -4,     3,    -5,   -11,   -11,     0,   -11,   -11,   -11,
-       1,     4,   -11
+      -3,   -10,     2,    -1,   -11,   -11,    -8,     0,   -11,   -11,
+     -11
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -497,21 +503,20 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     0,     0,     0,     3,     1,     0,     0,     4,     6,
-       7,     0,     0,     8,    10,     5,     0,    12,     2,     9,
-       0,     0,    11
+       0,     0,     0,     0,     3,     1,     0,     0,     4,     5,
+       2
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -11,   -11,   -11,   -11,   -11,     5,   -11,   -11,    -6,   -11
+     -11,   -11,   -11,   -11,   -11
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2,     3,     7,     8,     9,    12,    13,    14,    18
+      -1,     2,     3,     7,    10
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -519,37 +524,32 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-       1,     4,     5,     6,    10,    11,    16,    19,    17,     0,
-      20,    21,     0,    15,     0,     0,    22
+       1,     4,     5,     6,     8,     9
 };
 
-static const yytype_int8 yycheck[] =
+static const yytype_uint8 yycheck[] =
 {
-       3,    11,     0,     4,    12,    10,    10,    13,     5,    -1,
-      10,    10,    -1,     8,    -1,    -1,    12
+       3,    11,     0,     4,    12,     5
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     3,    19,    20,    11,     0,     4,    21,    22,    23,
-      12,    10,    24,    25,    26,    23,    10,     5,    27,    26,
-      10,    10,    12
+       0,     3,    18,    19,    11,     0,     4,    20,    12,     5,
+      21
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    18,    19,    20,    21,    22,    22,    23,    24,    25,
-      25,    26,    27
+       0,    17,    18,    19,    20,    21
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     4,     2,     1,     2,     1,     2,     1,     2,
-       1,     5,     1
+       0,     2,     3,     2,     2,     1
 };
 
 
@@ -1226,31 +1226,25 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 49 "../chomsky.ypp" /* yacc.c:1646  */
+#line 58 "../chomsky.ypp" /* yacc.c:1646  */
     { cout << "done with a snazzle file!" << endl; }
 #line 1232 "chomsky.tab.hpp" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 52 "../chomsky.ypp" /* yacc.c:1646  */
+#line 61 "../chomsky.ypp" /* yacc.c:1646  */
     { cout << "reading a snazzle file version " << (yyvsp[0].fval) << endl; }
 #line 1238 "chomsky.tab.hpp" /* yacc.c:1646  */
     break;
 
-  case 7:
-#line 62 "../chomsky.ypp" /* yacc.c:1646  */
+  case 4:
+#line 64 "../chomsky.ypp" /* yacc.c:1646  */
     { cout << "new defined snazzle type: " << (yyvsp[0].sval) << endl; }
 #line 1244 "chomsky.tab.hpp" /* yacc.c:1646  */
     break;
 
-  case 11:
-#line 72 "../chomsky.ypp" /* yacc.c:1646  */
-    { cout << "new snazzle: " << (yyvsp[-4].ival) << (yyvsp[-3].ival) << (yyvsp[-2].ival) << (yyvsp[-1].ival) << (yyvsp[0].sval) << endl; }
-#line 1250 "chomsky.tab.hpp" /* yacc.c:1646  */
-    break;
 
-
-#line 1254 "chomsky.tab.hpp" /* yacc.c:1646  */
+#line 1248 "chomsky.tab.hpp" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1478,22 +1472,39 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 78 "../chomsky.ypp" /* yacc.c:1906  */
+#line 71 "../chomsky.ypp" /* yacc.c:1906  */
 
 
-int main(int, char**) {
-	// open a file handle to a particular file:
-	FILE *myfile = fopen("in.snazzle", "r");
-	// make sure it's valid:
-	if (!myfile) {
-		cout << "I can't open a.snazzle.file!" << endl;
-		return -1;
+int main(int argc, const char* const argv[]){
+	if (argc==1) {
+		// no extra parameters passed. Parse a string
+		char string[] = "String to be parsed.";
+    	YY_BUFFER_STATE buffer = yy_scan_string(string);
+		yy_switch_to_buffer(buffer);
+	
+		yyparse();
+		yy_delete_buffer(buffer);
 	}
-	// Set flex to read from it instead of defaulting to STDIN:
-	yyin = myfile;
+	if (argc >= 2){
+		// argument passed, look for that filepath
+		// open a file handle to a particular file:
+		FILE *myfile = fopen(argv[1], "r");
+		// make sure it's valid:
+		if (!myfile) {
+			cout << "I can't open the file" << endl;
+			cout << argv[1] << endl;
+			return -1;
+		}
+		// Set flex to read from it instead of defaulting to STDIN:
+		yyin = myfile;
 
-	// Parse through the input:
-	yyparse();
+		// Parse through the input:
+		yyparse();
+	}
+
+
+	//;
+
 }
 
 void yyerror(const char *s) {
