@@ -73,9 +73,9 @@ extern int yylex();
 extern int yyparse();
 
 // buffer state. This is used to parse string in memory
+// decomment when https://github.com/westes/flex/issues/383
 typedef struct yy_buffer_state * YY_BUFFER_STATE;
 extern YY_BUFFER_STATE yy_scan_string(const char * str); // it does not work.
-extern YY_BUFFER_STATE yy_scan_buffer(char *, size_t);
 extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 extern void yy_switch_to_buffer(YY_BUFFER_STATE buffer);
 
@@ -1477,8 +1477,7 @@ yyreturn:
 
 int main(int argc, const char* const argv[]){
 	if (argc==1) {
-		// no extra parameters passed. Parse a string
-		char string[] = "String to be parsed.";
+		char string[] = "sNaZZle 1.3";
     	YY_BUFFER_STATE buffer = yy_scan_string(string);
 		yy_switch_to_buffer(buffer);
 	
